@@ -8,6 +8,13 @@ class Product extends Model
 {
     public function types()
     {
-    	return $this->hasMany(Type::class);
+
+        return $this->hasMany(Type::class);
+    }
+    public function getPriceAttribute($value)
+    {
+        $discount = $value * ($this->discount / 100);
+        $final_price = $value - $discount;
+        return number_format($final_price, 2);
     }
 }
